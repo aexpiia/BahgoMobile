@@ -45,7 +45,7 @@ export default function LocationScreen() {
                     <Text style={styles.buttonGhostText}>Don't Allow</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </Background>
     )
 }
 
