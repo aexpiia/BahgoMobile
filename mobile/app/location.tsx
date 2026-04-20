@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
+import Background from '../components/Background'
 
 const { width, height } = Dimensions.get('window')
 
@@ -7,15 +9,13 @@ export default function LocationScreen() {
     const router = useRouter()
 
     return (
-        <View style={styles.container}>
-            <View style={styles.gradientTop} />
-            <View style={styles.gradientBottom} />
-
-            {/* Popup Card */}
-            <View style={styles.popup}>
+        <Background>
+            <View style={styles.container}>
+                {/* Popup Card */}
+                <View style={styles.popup}>
                 {/* Icon */}
                 <View style={styles.iconBox}>
-                    <Text style={styles.icon}>📍</Text>
+                    <MaterialIcons name="place" size={28} color="#2563EB" style={styles.icon} />
                 </View>
 
                 <Text style={styles.title}>Enable Location</Text>
@@ -44,6 +44,7 @@ export default function LocationScreen() {
                 >
                     <Text style={styles.buttonGhostText}>Don't Allow</Text>
                 </TouchableOpacity>
+                </View>
             </View>
         </Background>
     )
@@ -52,27 +53,9 @@ export default function LocationScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1565C0',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    gradientTop: {
-        position: 'absolute',
-        top: 0, left: 0, right: 0,
-        height: height * 0.5,
-        backgroundColor: '#90CAF9',
-        borderBottomLeftRadius: width,
-        borderBottomRightRadius: width,
-        opacity: 0.5,
-    },
-    gradientBottom: {
-        position: 'absolute',
-        bottom: 0, left: 0, right: 0,
-        height: height * 0.55,
-        backgroundColor: '#0D47A1',
-        borderTopLeftRadius: width,
-        borderTopRightRadius: width,
-        opacity: 0.7,
+
     },
     popup: {
         width: width * 0.78,

@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Dimensions } from 'react-native'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
+import Background from '../components/Background'
+
 
 const { width, height } = Dimensions.get('window')
 
@@ -12,9 +14,8 @@ export default function PhoneScreen() {
     const canContinue = phone.length >= 10 && barangay.length > 0
 
     return (
-        <View style={styles.container}>
-            <View style={styles.gradientTop} />
-            <View style={styles.gradientBottom} />
+        <Background>
+             
 
             {/* Header */}
             <View style={styles.header}>
@@ -49,7 +50,7 @@ export default function PhoneScreen() {
                 <View style={styles.inputRow}>
                     <TextInput
                         style={[styles.input, { flex: 1 }]}
-                        placeholder="📍"
+                        placeholder="Enter barangay"
                         placeholderTextColor="#A0AEC0"
                         value={barangay}
                         onChangeText={setBarangay}
@@ -68,7 +69,7 @@ export default function PhoneScreen() {
                 </TouchableOpacity>
 
             </View>
-        </View>
+        </Background>
     )
 }
 
@@ -76,24 +77,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#1565C0',
-    },
-    gradientTop: {
-        position: 'absolute',
-        top: 0, left: 0, right: 0,
-        height: height * 0.5,
-        backgroundColor: '#90CAF9',
-        borderBottomLeftRadius: width,
-        borderBottomRightRadius: width,
-        opacity: 0.5,
-    },
-    gradientBottom: {
-        position: 'absolute',
-        bottom: 0, left: 0, right: 0,
-        height: height * 0.55,
-        backgroundColor: '#0D47A1',
-        borderTopLeftRadius: width,
-        borderTopRightRadius: width,
-        opacity: 0.7,
+
     },
     header: {
         paddingTop: 80,
@@ -103,12 +87,12 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontSize: 28,
         fontWeight: '800',
-        color: '#FFFFFF',
+        color: '#0C386C',
         marginBottom: 8,
     },
     headerSub: {
         fontSize: 14,
-        color: 'rgba(255,255,255,0.8)',
+        color: '#0C386C',
         lineHeight: 20,
     },
     card: {

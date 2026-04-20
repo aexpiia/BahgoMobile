@@ -1,101 +1,98 @@
-import { View, Text, StyleSheet, Dimensions, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, ActivityIndicator, Image, Animated } from 'react-native'
 import { useRouter } from 'expo-router'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import Background from '../components/Background'
 
-const { width, height } = Dimensions.get('window')
+const { height } = Dimensions.get('window')
 
 export default function LoadingScreen() {
     const router = useRouter()
+    const floatAnim = useRef(new Animated.Value(0)).current
+    const glowAnim = useRef(new Animated.Value(0.5)).current
 
     useEffect(() => {
+        // Navigate to dashboard after 3 seconds
         const timer = setTimeout(() => {
             router.push('/dashboard' as any)
         }, 3000)
+
+        // Float animation
+        Animated.loop(
+            Animated.sequence([
+                Animated.timing(floatAnim, { toValue: -10, duration: 1800, useNativeDriver: true }),
+                Animated.timing(floatAnim, { toValue: 0, duration: 1800, useNativeDriver: true }),
+            ])
+        ).start()
+
+        // Glow animation
+        Animated.loop(
+            Animated.sequence([
+                Animated.timing(glowAnim, { toValue: 1, duration: 1800, useNativeDriver: true }),
+                Animated.timing(glowAnim, { toValue: 0.4, duration: 1800, useNativeDriver: true }),
+            ])
+        ).start()
+
         return () => clearTimeout(timer)
     }, [])
 
     return (
-        <View style={styles.container}>
-            <View style={styles.gradientTop} />
-            <View style={styles.gradientBottom} />
+        <Background>
+            <View style={styles.container}>
 
-            {/* Logo */}
-            <View style={styles.logoCircle}>
-                <View style={styles.logoInner}>
-                    <Text style={styles.logoEmoji}>🌊</Text>
-                </View>
-                <View style={styles.orangeDot} />
+                {/* Logo */}
+                <Animated.View style={[styles.logoWrapper, { transform: [{ translateY: floatAnim }] }]}>
+                    <Animated.View style={[styles.glowRing, { opacity: glowAnim }]} />
+                    <Image
+                        source={require('../assets/images/logo.png')}
+                        style={styles.logoImage}
+                        resizeMode="contain"
+                    />
+                    <View style={styles.orangeDot} />
+                </Animated.View>
+
+                {/* Welcome Text */}
+                <Text style={styles.welcome}>Welcome</Text>
+
+                {/* Spinner */}
+                <ActivityIndicator
+                    size="small"
+                    color="rgba(255,255,255,0.8)"
+                    style={styles.spinner}
+                />
+
             </View>
-
-            {/* Welcome Text */}
-            <Text style={styles.welcome}>Welcome</Text>
-
-            {/* Spinner */}
-            <ActivityIndicator
-                size="small"
-                color="rgba(255,255,255,0.8)"
-                style={styles.spinner}
-            />
-        </View>
+        </Background>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1565C0',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    gradientTop: {
-        position: 'absolute',
-        top: 0, left: 0, right: 0,
-        height: height * 0.5,
-        backgroundColor: '#90CAF9',
-        borderBottomLeftRadius: width,
-        borderBottomRightRadius: width,
-        opacity: 0.5,
-    },
-    gradientBottom: {
-        position: 'absolute',
-        bottom: 0, left: 0, right: 0,
-        height: height * 0.55,
-        backgroundColor: '#0D47A1',
-        borderTopLeftRadius: width,
-        borderTopRightRadius: width,
-        opacity: 0.7,
-    },
-    logoCircle: {
-        width: 110,
-        height: 110,
-        borderRadius: 55,
-        backgroundColor: 'rgba(255,255,255,0.15)',
+    logoWrapper: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 28,
-        borderWidth: 2,
-        borderColor: 'rgba(255,255,255,0.3)',
+        marginBottom: 24,
         position: 'relative',
     },
-    logoInner: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
-        backgroundColor: 'rgba(255,255,255,0.2)',
-        alignItems: 'center',
-        justifyContent: 'center',
+    logoImage: {
+        width: 120,
+        height: 120,
     },
-    logoEmoji: {
-        fontSize: 40,
-    },
-    orangeDot: {
+    glowRing: {
         position: 'absolute',
-        top: 12, right: 14,
-        width: 18, height: 18,
-        borderRadius: 9,
-        backgroundColor: '#FF9800',
-        borderWidth: 2,
-        borderColor: 'white',
+        width: 155,
+        height: 155,
+        borderRadius: 80,
+        backgroundColor: 'rgba(255,255,255,0.1)',
+        shadowColor: '#FFFFFF',
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 1,
+        shadowRadius: 30,
+        elevation: 20,
+    
     },
     welcome: {
         fontSize: 36,

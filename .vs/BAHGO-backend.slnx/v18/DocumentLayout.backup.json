@@ -1,0 +1,239 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\dashboard.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:mobile\\app\\dashboard.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\location.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:mobile\\app\\location.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\condition.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:mobile\\app\\condition.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\components\\Background.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:mobile\\components\\Background.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\components\\ui\\Logo.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:mobile\\components\\ui\\Logo.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\index.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:mobile\\app\\index.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\_layout.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:mobile\\app\\_layout.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\loading.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:mobile\\app\\loading.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\phone.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:mobile\\app\\phone.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\notification.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:mobile\\app\\notification.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\otp.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:mobile\\app\\otp.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:mobile\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 373,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "index.tsx",
+              "DocumentMoniker": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\index.tsx",
+              "RelativeDocumentMoniker": "mobile\\app\\index.tsx",
+              "ToolTip": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\index.tsx",
+              "RelativeToolTip": "mobile\\app\\index.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-29T08:43:44.089Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "dashboard.tsx",
+              "DocumentMoniker": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\dashboard.tsx",
+              "RelativeDocumentMoniker": "mobile\\app\\dashboard.tsx",
+              "ToolTip": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\dashboard.tsx",
+              "RelativeToolTip": "mobile\\app\\dashboard.tsx",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAABUAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-29T08:43:41.893Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "condition.tsx",
+              "DocumentMoniker": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\condition.tsx",
+              "RelativeDocumentMoniker": "mobile\\app\\condition.tsx",
+              "ToolTip": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\condition.tsx",
+              "RelativeToolTip": "mobile\\app\\condition.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-29T08:43:37.807Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "loading.tsx",
+              "DocumentMoniker": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\loading.tsx",
+              "RelativeDocumentMoniker": "mobile\\app\\loading.tsx",
+              "ToolTip": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\loading.tsx",
+              "RelativeToolTip": "mobile\\app\\loading.tsx",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAA0AAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-29T08:40:07.779Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "location.tsx",
+              "DocumentMoniker": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\location.tsx",
+              "RelativeDocumentMoniker": "mobile\\app\\location.tsx",
+              "ToolTip": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\location.tsx",
+              "RelativeToolTip": "mobile\\app\\location.tsx",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-29T08:39:18.607Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Logo.tsx",
+              "DocumentMoniker": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\components\\ui\\Logo.tsx",
+              "RelativeDocumentMoniker": "mobile\\components\\ui\\Logo.tsx",
+              "ToolTip": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\components\\ui\\Logo.tsx",
+              "RelativeToolTip": "mobile\\components\\ui\\Logo.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-29T08:29:20.326Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Background.tsx",
+              "DocumentMoniker": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\components\\Background.tsx",
+              "RelativeDocumentMoniker": "mobile\\components\\Background.tsx",
+              "ToolTip": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\components\\Background.tsx",
+              "RelativeToolTip": "mobile\\components\\Background.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-29T08:29:13.371Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "_layout.tsx",
+              "DocumentMoniker": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\_layout.tsx",
+              "RelativeDocumentMoniker": "mobile\\app\\_layout.tsx",
+              "ToolTip": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\_layout.tsx",
+              "RelativeToolTip": "mobile\\app\\_layout.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-11T12:09:55.1Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "notification.tsx",
+              "DocumentMoniker": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\notification.tsx",
+              "RelativeDocumentMoniker": "mobile\\app\\notification.tsx",
+              "ToolTip": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\notification.tsx",
+              "RelativeToolTip": "mobile\\app\\notification.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-11T12:06:22.123Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "phone.tsx",
+              "DocumentMoniker": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\phone.tsx",
+              "RelativeDocumentMoniker": "mobile\\app\\phone.tsx",
+              "ToolTip": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\phone.tsx",
+              "RelativeToolTip": "mobile\\app\\phone.tsx",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAE8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-11T12:35:59.539Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "otp.tsx",
+              "DocumentMoniker": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\otp.tsx",
+              "RelativeDocumentMoniker": "mobile\\app\\otp.tsx",
+              "ToolTip": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\app\\otp.tsx",
+              "RelativeToolTip": "mobile\\app\\otp.tsx",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAAAGgAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2026-03-11T12:05:23.592Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 194,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:7:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\.gitignore",
+              "RelativeDocumentMoniker": "mobile\\.gitignore",
+              "ToolTip": "C:\\Users\\Norman\\source\\repos\\BAHGO-backend\\mobile\\.gitignore",
+              "RelativeToolTip": "mobile\\.gitignore",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-03-29T08:09:29.278Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 116,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
