@@ -29,7 +29,7 @@ export default function NotificationScreen() {
                         style={styles.buttonLeft}
                         onPress={() => router.push('/loading')}
                     >
-                        <Text style={styles.buttonLeftText}>Don't Allow</Text>
+                        <Text style={styles.buttonLeftText}>Don&#39;t Allow</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity

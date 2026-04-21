@@ -42,7 +42,7 @@ export default function LocationScreen() {
                     style={styles.buttonGhost}
                     onPress={() => router.push('/notification')}
                 >
-                    <Text style={styles.buttonGhostText}>Don't Allow</Text>
+                    <Text style={styles.buttonGhostText}>Don&#39;t Allow</Text>
                 </TouchableOpacity>
                 </View>
             </View>

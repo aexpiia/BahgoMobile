@@ -32,7 +32,7 @@ export default function OTPScreen() {
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Check your text messages</Text>
                 <Text style={styles.headerSub}>
-                    We'll send flood alerts straight to your phone.
+                    We&#39;ll send flood alerts straight to your phone.
                 </Text>
             </View>
 
@@ -65,7 +65,7 @@ export default function OTPScreen() {
                 {/* Resend */}
                 <TouchableOpacity>
                     <Text style={styles.resend}>
-                        Can't receive OTP? <Text style={styles.resendBold}>RESEND</Text>
+                        Can&#39;t receive OTP? <Text style={styles.resendBold}>RESEND</Text>
                     </Text>
                 </TouchableOpacity>
 

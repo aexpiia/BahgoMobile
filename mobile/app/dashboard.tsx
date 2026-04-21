@@ -3,18 +3,16 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useFonts, Poppins_400Regular, Poppins_600SemiBold, Poppins_700Bold, Poppins_800ExtraBold } from '@expo-google-fonts/poppins'
-import { useState, useEffect } from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 const WATER_DATA = [
-    { id: '1', street: 'Apple Street', area: 'Central, Taguig', level: '25cm', status: 'moderate', statusColor: '#F5920A', isCurrent: true },
-    { id: '2', street: 'Peach Street', area: 'Central, Taguig', level: '23cm', status: 'moderate', statusColor: '#F5920A', isCurrent: false },
-    { id: '3', street: 'Lime Street', area: 'Central, Taguig', level: '30cm', status: 'dangerous', statusColor: '#E53E3E', isCurrent: false },
+    { id: '1', street: 'Apple Street', area: 'Central, Taguig', level: '25cm', status: 'caution', statusColor: '#F5920A', isCurrent: true },
+    { id: '2', street: 'Peach Street', area: 'Central, Taguig', level: '23cm', status: 'caution', statusColor: '#F5920A', isCurrent: false },
+    { id: '3', street: 'Lime Street', area: 'Central, Taguig', level: '30cm', status: 'danger', statusColor: '#E53E3E', isCurrent: false },
 ]
 
 export default function Dashboard() {
     const router = useRouter()
-    const [monitorMode, setMonitorMode] = useState<'person' | 'car' | 'condition'>('person')
 
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
@@ -23,35 +21,14 @@ export default function Dashboard() {
         Poppins_800ExtraBold,
     })
 
-    useEffect(() => {
-        const loadMode = async () => {
-            const mode = await AsyncStorage.getItem('monitorMode')
-            if (mode) setMonitorMode(mode as 'person' | 'car' | 'condition')
-        }
-        loadMode()
-    }, [])
-
     if (!fontsLoaded) return null
     const current = WATER_DATA[0]
 
-    const getStatusForMode = (level: string, mode: string) => {
-        const levelNum = parseInt(level.replace('cm', ''))
-        if (mode === 'person') {
-            if (levelNum < 10) return { status: 'safe', color: '#16A34A' }
-            if (levelNum < 25) return { status: 'caution', color: '#F5920A' }
-            return { status: 'unsafe', color: '#E53E3E' }
-        } else if (mode === 'car') {
-            if (levelNum < 10) return { status: 'safe', color: '#16A34A' }
-            if (levelNum < 25) return { status: 'risky', color: '#F5920A' }
-            return { status: 'danger', color: '#E53E3E' }
-        } else {
-            if (levelNum < 15) return { status: 'low', color: '#16A34A' }
-            if (levelNum < 30) return { status: 'moderate', color: '#F5920A' }
-            return { status: 'high', color: '#E53E3E' }
-        }
+    const getWeatherIcon = (status: string) => {
+        if (status === 'safe') return 'mood'
+        if (status === 'caution') return 'water'
+        return 'waves'
     }
-
-    const currentStatus = getStatusForMode(current.level, monitorMode)
 
     return (
         <View style={styles.container}>
@@ -112,12 +89,13 @@ export default function Dashboard() {
                                 </View>
                                 <View style={styles.divider} />
                                 <View style={styles.locationCardRight}>
-                                    <MaterialIcons name="directions-walk" size={22} color="#2563EB" style={styles.levelIcon} />
+                                     <MaterialIcons name={getWeatherIcon(current.status)} size={22} color="#2563EB" style={styles.levelIcon} />
+                        
                                     <View>
                                         <Text style={styles.levelLabel}>Water Level</Text>
                                         <View style={styles.levelRow}>
                                             <Text style={styles.levelValue}>{current.level}</Text>
-                                        <Text style={[styles.levelStatus, { color: currentStatus.color }]}>{currentStatus.status}</Text>
+                                        <Text style={[styles.levelStatus, { color: current.statusColor }]}>{current.status}</Text>
                                         </View>
                                     </View>
                                 </View>
@@ -140,9 +118,9 @@ export default function Dashboard() {
 
                             {/* Risk Level Card */}
                             <LinearGradient colors={['#2F7EE7', '#4d91eb']} style={styles.statusCard}>
-                                <MaterialIcons name="trending-up" size={18} color="#fff" style={styles.statusCardIcon} />
+                                <MaterialIcons name="warning" size={18} color="#fff" style={styles.statusCardIcon} />
                                 <Text style={styles.statusCardLabel}>Risk Level</Text>
-                                <Text style={styles.statusCardValueWarning}>warning</Text>
+                                <Text style={styles.statusCardValueWarning}>Caution</Text>
                                 <Text style={styles.statusCardSub}>Water level is approaching the critical threshold</Text>
                             </LinearGradient>
                         </View>
@@ -157,19 +135,10 @@ export default function Dashboard() {
                             </View>
                         </View>
 
-                        {/* Person Mode */}
+                        {/* Brief General Description */}
                         <View style={styles.personCard}>
-                            <View style={styles.personHeader}>
-                                <MaterialIcons name={monitorMode === 'person' ? 'directions-walk' : monitorMode === 'car' ? 'directions-car' : 'info'} size={22} color="#2563EB" style={styles.personIcon} />
-                                <Text style={styles.personLabel}>{monitorMode === 'person' ? 'Person Mode' : monitorMode === 'car' ? 'Car Mode' : 'Condition Mode'}</Text>
-                            </View>
                             <Text style={styles.personText}>
-                                {monitorMode === 'person'
-                                    ? 'Area may become unsafe—stay alert and avoid if possible.'
-                                    : monitorMode === 'car'
-                                    ? 'Driving conditions may be hazardous—exercise caution.'
-                                    : 'General flood conditions are being monitored.'
-                                }
+                                Monitor water levels and stay safe during flood conditions.
                             </Text>
                         </View>
                     </View>
@@ -180,7 +149,6 @@ export default function Dashboard() {
                     <Text style={styles.nearbyLabel}>nearby street devices:</Text>
 
                     {WATER_DATA.filter(d => !d.isCurrent).map(device => {
-                        const deviceStatus = getStatusForMode(device.level, monitorMode)
                         return (
                         <TouchableOpacity
                             key={device.id}
@@ -197,12 +165,12 @@ export default function Dashboard() {
                             </View>
                             <View style={styles.nearbyDivider} />
                             <View style={styles.nearbyCardRight}>
-                                <MaterialIcons name="directions-walk" size={22} color="#2563EB" style={styles.nearbyIcon} />
+                                <MaterialIcons name={getWeatherIcon(device.status)} size={22} color="#2563EB" style={styles.nearbyIcon} />
                                 <View>
                                     <Text style={styles.nearbyLevelLabel}>Water Level</Text>
                                     <View style={styles.levelRow}>
                                         <Text style={styles.nearbyLevelValue}>{device.level}</Text>
-                                        <Text style={[styles.nearbyLevelStatus, { color: deviceStatus.color }]}>{deviceStatus.status}</Text>
+                                        <Text style={[styles.nearbyLevelStatus, { color: device.statusColor }]}>{device.status}</Text>
                                     </View>
                                 </View>
                             </View>
@@ -303,6 +271,14 @@ const styles = StyleSheet.create({
     // Person Mode
     personCard: {
         backgroundColor: 'rgba(255, 255, 255, 0.6)', borderRadius: 16, padding: 16,
+        elevation: 2, shadowColor: '#1d4ed8', shadowOpacity: 0.03, shadowRadius: 4, shadowOffset: { width: 0, height: 1 },
+    },
+    carCard: {
+        backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: 16, padding: 16,
+        elevation: 2, shadowColor: '#1d4ed8', shadowOpacity: 0.03, shadowRadius: 4, shadowOffset: { width: 0, height: 1 },
+    },
+    conditionCard: {
+        backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: 16, padding: 16,
         elevation: 2, shadowColor: '#1d4ed8', shadowOpacity: 0.03, shadowRadius: 4, shadowOffset: { width: 0, height: 1 },
     },
     personHeader: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 },

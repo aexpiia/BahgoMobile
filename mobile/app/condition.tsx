@@ -118,22 +118,28 @@ export default function Conditions() {
 
         {/* Location Banner */}
         <View style={styles.section}>
-          <LinearGradient colors={['#2665b8', '#014194']} style={styles.locationBanner}>
-            <View style={styles.bannerLeft}>
-              <MaterialIcons name="place" size={22} color="#fff" />
-              <View>
-                <Text style={styles.bannerStreet}>Apple Street</Text>
-                <Text style={styles.bannerArea}>Central, Taguig</Text>
-              </View>
-            </View>
-            <Text style={styles.bannerTemp}>29°</Text>
-          </LinearGradient>
+            <LinearGradient colors={['#134999', '#1869b4']} style={styles.locationBanner}>
+                <View style={styles.bannerLeft}>
+                    <MaterialIcons name="place" size={26} color="#FFFFFF" />
+                    <View>
+                        <Text style={styles.bannerStreet}>Apple Street</Text>
+                        <Text style={styles.bannerArea}>Central, Taguig</Text>
+                    </View>
+                </View>
+                <Text style={styles.bannerTemp}>29°</Text>
+            </LinearGradient>
         </View>
+
+
 
         {/* Current Level Status */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Current Level Status</Text>
+          <Text style={[styles.personText, { marginBottom: 12 }]}>
+            The water level is 25cm, which is approaching the caution threshold. Monitor the situation and stay updated on flood conditions.
+          </Text>
 
+          {/* Status Row */}
           <View style={styles.statusRow}>
             <LinearGradient colors={['#5492e4', '#317de0']} style={styles.statusCard}>
               <MaterialIcons name="trending-up" size={18} color="#fff" />
@@ -143,9 +149,9 @@ export default function Conditions() {
             </LinearGradient>
 
             <LinearGradient colors={['#ffae75', '#eb8130']} style={styles.statusCard}>
-              <MaterialIcons name="trending-up" size={18} color="#fff" />
+              <MaterialIcons name="warning" size={18} color="#fff" />
               <Text style={styles.statusCardLabel}>Risk Level</Text>
-              <Text style={styles.statusCardValueWarning}>warning</Text>
+              <Text style={styles.statusCardValueWarning}>Caution</Text>
               <Text style={styles.statusCardSub}>Water level is approaching the critical threshold</Text>
             </LinearGradient>
           </View>
@@ -160,19 +166,14 @@ export default function Conditions() {
             </View>
           </View>
 
-          {/* Person Mode */}
+          {/* General Info Card */}
           <View style={styles.personCard}>
             <View style={styles.personHeader}>
-              <MaterialIcons name="directions-walk" size={22} color="#2563EB" />
-              <Text style={styles.personLabel}>Person Mode</Text>
+              <MaterialIcons name="info" size={22} color="#2563EB" />
+              <Text style={styles.personLabel}>Flood Monitoring</Text>
             </View>
             <Text style={styles.personText}>
-              The Water level is 25cm, which is{' '}
-              <Text style={styles.bold}>70% of the safe limit for walking.</Text>
-              {' '}At this rate, it{' '}
-              <Text style={styles.bold}>may become unsafe soon,</Text>
-              {' '}as the water is rising at 3 cm per hour. The expected rainfall is 5.0 mm per hour, which could make the area even more dangerous.{' '}
-              <Text style={styles.bold}>Stay alert and avoid this area if possible.</Text>
+              Monitor water levels and stay safe. Current conditions show elevated water levels that require attention.
             </Text>
           </View>
         </View>
@@ -184,6 +185,12 @@ export default function Conditions() {
             <FloodChart />
           </View>
         </View>
+
+
+
+
+
+
 
         <View style={{ height: 40 }} />
       </ScrollView>
@@ -207,7 +214,7 @@ const styles = StyleSheet.create({
   locationBanner: {
     borderRadius: 18, padding: 18,
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    elevation: 4, shadowColor: '#2563EB', shadowOpacity: 0.3, shadowRadius: 10, shadowOffset: { width: 0, height: 4 },
+    elevation: 4, shadowColor: '#0C386C', shadowOpacity: 0.3, shadowRadius: 10, shadowOffset: { width: 0, height: 4 },
   },
   bannerLeft: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   bannerStreet: { fontFamily: 'Poppins_800ExtraBold', fontSize: 22, color: '#FFFFFF' },

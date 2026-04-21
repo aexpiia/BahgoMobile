@@ -19,9 +19,9 @@ export default function PhoneScreen() {
 
             {/* Header */}
             <View style={styles.header}>
-                <Text style={styles.headerTitle}>Let's get you set up</Text>
+                <Text style={styles.headerTitle}>Let&#39;s get you set up</Text>
                 <Text style={styles.headerSub}>
-                    We'll send flood alerts straight to your phone.
+                    We&#39;ll send flood alerts straight to your phone.
                 </Text>
             </View>
 
@@ -87,12 +87,12 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontSize: 28,
         fontWeight: '800',
-        color: '#0C386C',
+        color: '#FFFFFF',
         marginBottom: 8,
     },
     headerSub: {
         fontSize: 14,
-        color: '#0C386C',
+        color: '#FFFFFF',
         lineHeight: 20,
     },
     card: {
