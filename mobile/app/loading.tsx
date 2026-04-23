@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Dimensions, ActivityIndicator, Image, Animated } from 'react-native'
 import { useRouter } from 'expo-router'
 import { useEffect, useRef } from 'react'
+import { useFonts, Poppins_800ExtraBold } from '@expo-google-fonts/poppins'
 import Background from '../components/Background'
 
 const { height } = Dimensions.get('window')
@@ -10,13 +11,13 @@ export default function LoadingScreen() {
     const floatAnim = useRef(new Animated.Value(0)).current
     const glowAnim = useRef(new Animated.Value(0.5)).current
 
+    const [fontsLoaded] = useFonts({ Poppins_800ExtraBold })
+
     useEffect(() => {
-        // Navigate to dashboard after 3 seconds
         const timer = setTimeout(() => {
             router.push('/dashboard' as any)
         }, 3000)
 
-        // Float animation
         Animated.loop(
             Animated.sequence([
                 Animated.timing(floatAnim, { toValue: -10, duration: 1800, useNativeDriver: true }),
@@ -24,7 +25,6 @@ export default function LoadingScreen() {
             ])
         ).start()
 
-        // Glow animation
         Animated.loop(
             Animated.sequence([
                 Animated.timing(glowAnim, { toValue: 1, duration: 1800, useNativeDriver: true }),
@@ -35,11 +35,11 @@ export default function LoadingScreen() {
         return () => clearTimeout(timer)
     }, [])
 
+    if (!fontsLoaded) return null
+
     return (
         <Background>
             <View style={styles.container}>
-
-                {/* Logo */}
                 <Animated.View style={[styles.logoWrapper, { transform: [{ translateY: floatAnim }] }]}>
                     <Animated.View style={[styles.glowRing, { opacity: glowAnim }]} />
                     <Image
@@ -47,19 +47,16 @@ export default function LoadingScreen() {
                         style={styles.logoImage}
                         resizeMode="contain"
                     />
-                    <View style={styles.orangeDot} />
+                    
                 </Animated.View>
 
-                {/* Welcome Text */}
                 <Text style={styles.welcome}>Welcome</Text>
 
-                {/* Spinner */}
                 <ActivityIndicator
                     size="small"
                     color="rgba(255,255,255,0.8)"
                     style={styles.spinner}
                 />
-
             </View>
         </Background>
     )
@@ -87,16 +84,11 @@ const styles = StyleSheet.create({
         height: 155,
         borderRadius: 80,
         backgroundColor: 'rgba(255,255,255,0.1)',
-        shadowColor: '#FFFFFF',
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 1,
-        shadowRadius: 30,
-        elevation: 20,
-    
     },
+    
     welcome: {
+        fontFamily: 'Poppins_800ExtraBold',
         fontSize: 36,
-        fontWeight: '800',
         color: '#FFFFFF',
         marginBottom: 40,
     },
