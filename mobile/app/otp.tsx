@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Dimensions } from 'react-native'
-import { useRouter } from 'expo-router'
+import { useRouter, useLocalSearchParams } from 'expo-router'
 import { useState, useRef } from 'react'
 import Background from '../components/Background'
 
@@ -7,8 +7,18 @@ const { width, height } = Dimensions.get('window')
 
 export default function OTPScreen() {
     const router = useRouter()
+    const { phone, code } = useLocalSearchParams()
     const [otp, setOtp] = useState(['', '', '', '', '', ''])
     const inputs = useRef<TextInput[]>([])
+
+    const handleVerify = () => {
+        const entered = otp.join('')
+        if (entered === code) {
+            router.push('/location')
+        } else {
+            alert('Incorrect OTP. Please try again.')
+        }
+    }
 
     const handleChange = (text: string, index: number) => {
         const newOtp = [...otp]
@@ -27,8 +37,6 @@ export default function OTPScreen() {
 
     return (
         <Background>
-
-            {/* Header */}
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Check your text messages</Text>
                 <Text style={styles.headerSub}>
@@ -36,15 +44,13 @@ export default function OTPScreen() {
                 </Text>
             </View>
 
-            {/* Card */}
             <View style={styles.card}>
                 <Text style={styles.cardTitle}>OTP Verification</Text>
                 <Text style={styles.cardSub}>
                     Enter the code from the sms we sent to{'\n'}
-                    <Text style={styles.phoneText}>+09234567890</Text>
+                    <Text style={styles.phoneText}>+63{phone}</Text>
                 </Text>
 
-                {/* OTP Boxes */}
                 <View style={styles.otpRow}>
                     {otp.map((digit, i) => (
                         <TextInput
@@ -62,17 +68,15 @@ export default function OTPScreen() {
                     ))}
                 </View>
 
-                {/* Resend */}
                 <TouchableOpacity>
                     <Text style={styles.resend}>
                         Can&#39;t receive OTP? <Text style={styles.resendBold}>RESEND</Text>
                     </Text>
                 </TouchableOpacity>
 
-                {/* Verify Button */}
                 <TouchableOpacity
                     style={[styles.button, !filled && styles.buttonDisabled]}
-                    onPress={() => filled && router.push('/location')}
+                    onPress={() => filled && handleVerify()}
                     activeOpacity={0.85}
                 >
                     <Text style={[styles.buttonText, !filled && styles.buttonTextDisabled]}>
@@ -85,26 +89,10 @@ export default function OTPScreen() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#1565C0',
-
-    },
-    header: {
-        paddingTop: 80,
-        paddingHorizontal: 32,
-        paddingBottom: 32,
-    },
-    headerTitle: {
-        fontSize: 26,
-        fontWeight: '800',
-        color: '#FFFFFF',
-        marginBottom: 8,
-    },
-    headerSub: {
-        fontSize: 14,
-        color: 'rgba(255,255,255,0.8)',
-    },
+    container: { flex: 1, backgroundColor: '#1565C0' },
+    header: { paddingTop: 80, paddingHorizontal: 32, paddingBottom: 32 },
+    headerTitle: { fontSize: 26, fontWeight: '800', color: '#FFFFFF', marginBottom: 8 },
+    headerSub: { fontSize: 14, color: 'rgba(255,255,255,0.8)' },
     card: {
         marginHorizontal: 24,
         backgroundColor: 'rgba(255,255,255,0.15)',
@@ -114,73 +102,27 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(255,255,255,0.3)',
         alignItems: 'center',
     },
-    cardTitle: {
-        fontSize: 20,
-        fontWeight: '800',
-        color: '#FFFFFF',
-        marginBottom: 10,
-    },
-    cardSub: {
-        fontSize: 13,
-        color: 'rgba(255,255,255,0.8)',
-        textAlign: 'center',
-        lineHeight: 20,
-        marginBottom: 28,
-    },
-    phoneText: {
-        fontWeight: '700',
-        color: '#FFFFFF',
-    },
-    otpRow: {
-        flexDirection: 'row',
-        gap: 10,
-        marginBottom: 20,
-    },
+    cardTitle: { fontSize: 20, fontWeight: '800', color: '#FFFFFF', marginBottom: 10 },
+    cardSub: { fontSize: 13, color: 'rgba(255,255,255,0.8)', textAlign: 'center', lineHeight: 20, marginBottom: 28 },
+    phoneText: { fontWeight: '700', color: '#FFFFFF' },
+    otpRow: { flexDirection: 'row', gap: 10, marginBottom: 20 },
     otpBox: {
-        width: 46,
-        height: 54,
+        width: 46, height: 54,
         backgroundColor: 'rgba(255,255,255,0.9)',
         borderRadius: 12,
-        fontSize: 22,
-        fontWeight: '700',
-        color: '#1565C0',
-        borderWidth: 2,
-        borderColor: 'transparent',
+        fontSize: 22, fontWeight: '700', color: '#1565C0',
+        borderWidth: 2, borderColor: 'transparent',
     },
-    otpBoxFilled: {
-        borderColor: '#FFFFFF',
-        backgroundColor: 'rgba(255,255,255,1)',
-    },
-    resend: {
-        fontSize: 12,
-        color: 'rgba(255,255,255,0.7)',
-        marginBottom: 28,
-    },
-    resendBold: {
-        fontWeight: '800',
-        color: '#FFFFFF',
-    },
+    otpBoxFilled: { borderColor: '#FFFFFF', backgroundColor: 'rgba(255,255,255,1)' },
+    resend: { fontSize: 12, color: 'rgba(255,255,255,0.7)', marginBottom: 28 },
+    resendBold: { fontWeight: '800', color: '#FFFFFF' },
     button: {
-        width: '100%',
-        backgroundColor: '#FFFFFF',
-        borderRadius: 50,
-        paddingVertical: 15,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.15,
-        shadowRadius: 10,
-        elevation: 5,
+        width: '100%', backgroundColor: '#FFFFFF',
+        borderRadius: 50, paddingVertical: 15, alignItems: 'center',
+        shadowColor: '#000', shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.15, shadowRadius: 10, elevation: 5,
     },
-    buttonDisabled: {
-        backgroundColor: 'rgba(255,255,255,0.3)',
-    },
-    buttonText: {
-        fontSize: 16,
-        fontWeight: '700',
-        color: '#1565C0',
-    },
-    buttonTextDisabled: {
-        color: 'rgba(255,255,255,0.6)',
-    },
+    buttonDisabled: { backgroundColor: 'rgba(255,255,255,0.3)' },
+    buttonText: { fontSize: 16, fontWeight: '700', color: '#1565C0' },
+    buttonTextDisabled: { color: 'rgba(255,255,255,0.6)' },
 })

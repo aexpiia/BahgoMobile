@@ -126,7 +126,6 @@ export default function Conditions() {
                         <Text style={styles.bannerArea}>Central, Taguig</Text>
                     </View>
                 </View>
-                <Text style={styles.bannerTemp}>29°</Text>
             </LinearGradient>
         </View>
 

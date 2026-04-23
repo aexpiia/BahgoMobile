@@ -3,8 +3,9 @@ import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import Background from '../components/Background'
 
-
 const { width, height } = Dimensions.get('window')
+
+
 
 export default function PhoneScreen() {
     const router = useRouter()
@@ -13,11 +14,15 @@ export default function PhoneScreen() {
 
     const canContinue = phone.length >= 10 && barangay.length > 0
 
+    const sendOTP = async () => {
+        if (!canContinue) return
+        const generatedCode = '676767'
+        console.log('Test OTP:', generatedCode)
+        router.push({ pathname: '/otp', params: { phone, code: generatedCode } })
+    }
+
     return (
         <Background>
-             
-
-            {/* Header */}
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Let&#39;s get you set up</Text>
                 <Text style={styles.headerSub}>
@@ -25,10 +30,7 @@ export default function PhoneScreen() {
                 </Text>
             </View>
 
-            {/* Form Card */}
             <View style={styles.card}>
-
-                {/* Phone Number */}
                 <Text style={styles.label}>Phone Number</Text>
                 <View style={styles.inputRow}>
                     <View style={styles.flagBox}>
@@ -45,7 +47,6 @@ export default function PhoneScreen() {
                     />
                 </View>
 
-                {/* Barangay */}
                 <Text style={[styles.label, { marginTop: 20 }]}>Your Area/ Barangay</Text>
                 <View style={styles.inputRow}>
                     <TextInput
@@ -57,44 +58,25 @@ export default function PhoneScreen() {
                     />
                 </View>
 
-                {/* Continue Button */}
                 <TouchableOpacity
                     style={[styles.button, !canContinue && styles.buttonDisabled]}
-                    onPress={() => canContinue && router.push('/otp')}
+                    onPress={sendOTP}
                     activeOpacity={0.85}
                 >
                     <Text style={[styles.buttonText, !canContinue && styles.buttonTextDisabled]}>
                         Continue
                     </Text>
                 </TouchableOpacity>
-
             </View>
         </Background>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#1565C0',
-
-    },
-    header: {
-        paddingTop: 80,
-        paddingHorizontal: 32,
-        paddingBottom: 32,
-    },
-    headerTitle: {
-        fontSize: 28,
-        fontWeight: '800',
-        color: '#FFFFFF',
-        marginBottom: 8,
-    },
-    headerSub: {
-        fontSize: 14,
-        color: '#FFFFFF',
-        lineHeight: 20,
-    },
+    container: { flex: 1, backgroundColor: '#1565C0' },
+    header: { paddingTop: 80, paddingHorizontal: 32, paddingBottom: 32 },
+    headerTitle: { fontSize: 28, fontWeight: '800', color: '#FFFFFF', marginBottom: 8 },
+    headerSub: { fontSize: 14, color: '#FFFFFF', lineHeight: 20 },
     card: {
         marginHorizontal: 24,
         backgroundColor: 'rgba(255,255,255,0.15)',
@@ -103,12 +85,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'rgba(255,255,255,0.3)',
     },
-    label: {
-        fontSize: 13,
-        fontWeight: '600',
-        color: '#FFFFFF',
-        marginBottom: 8,
-    },
+    label: { fontSize: 13, fontWeight: '600', color: '#FFFFFF', marginBottom: 8 },
     inputRow: {
         flexDirection: 'row',
         backgroundColor: 'rgba(255,255,255,0.9)',
@@ -116,24 +93,9 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         alignItems: 'center',
     },
-    flagBox: {
-        paddingHorizontal: 14,
-        paddingVertical: 14,
-        borderRightWidth: 1,
-        borderRightColor: '#E2E8F0',
-    },
-    flagText: {
-        fontSize: 14,
-        color: '#2D3748',
-        fontWeight: '600',
-    },
-    input: {
-        flex: 1,
-        paddingHorizontal: 14,
-        paddingVertical: 14,
-        fontSize: 15,
-        color: '#2D3748',
-    },
+    flagBox: { paddingHorizontal: 14, paddingVertical: 14, borderRightWidth: 1, borderRightColor: '#E2E8F0' },
+    flagText: { fontSize: 14, color: '#2D3748', fontWeight: '600' },
+    input: { flex: 1, paddingHorizontal: 14, paddingVertical: 14, fontSize: 15, color: '#2D3748' },
     button: {
         marginTop: 32,
         backgroundColor: '#FFFFFF',
@@ -146,15 +108,7 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         elevation: 5,
     },
-    buttonDisabled: {
-        backgroundColor: 'rgba(255,255,255,0.3)',
-    },
-    buttonText: {
-        fontSize: 16,
-        fontWeight: '700',
-        color: '#1565C0',
-    },
-    buttonTextDisabled: {
-        color: 'rgba(255,255,255,0.6)',
-    },
+    buttonDisabled: { backgroundColor: 'rgba(255,255,255,0.3)' },
+    buttonText: { fontSize: 16, fontWeight: '700', color: '#1565C0' },
+    buttonTextDisabled: { color: 'rgba(255,255,255,0.6)' },
 })
