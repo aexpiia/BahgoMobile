@@ -1,0 +1,45 @@
+// mobile/utils/floodStatus.ts
+import { FloodStatus } from '@/types/flood'
+
+export const STATUS_COLOR: Record<FloodStatus, string> = {
+  safe:     '#639922',
+  caution:  '#F5920A',
+  danger:   '#E53E3E',
+  critical: '#A32D2D',
+}
+
+export const STATUS_ICON: Record<FloodStatus, string> = {
+  safe:     'mood',
+  caution:  'water',
+  danger:   'waves',
+  critical: 'warning',
+}
+
+export const STATUS_DESCRIPTION: Record<FloodStatus, string> = {
+  safe:     'Water levels are normal. No immediate threat detected.',
+  caution:  'Water level is approaching the caution threshold. Monitor the situation and stay updated on flood conditions.',
+  danger:   'Dangerous water levels detected. Avoid flooded areas and prepare to evacuate.',
+  critical: 'Life-threatening flood conditions. Evacuate immediately.',
+}
+
+export const PERSON_SAFETY: Record<FloodStatus, string> = {
+  safe:     'Walkable with caution.',
+  caution:  'Difficult to walk. Risk of falling.',
+  danger:   'Very dangerous. Strong current risk.',
+  critical: 'Life-threatening. Evacuate immediately.',
+}
+
+// Dynamically calculate status from raw cm value
+export function getStatusFromLevel(cm: number): FloodStatus {
+  if (cm < 15)  return 'safe'
+  if (cm < 30)  return 'caution'
+  if (cm < 60)  return 'danger'
+  return 'critical'
+}
+
+// Threshold is 35cm — adjust to match your device spec
+export const THRESHOLD_CM = 35
+
+export function getThresholdPercent(cm: number): number {
+  return Math.min(Math.round((cm / THRESHOLD_CM) * 100), 100)
+}

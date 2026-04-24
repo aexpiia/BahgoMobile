@@ -49,7 +49,7 @@ export default function About() {
             { icon: 'notifications', text: 'Real-time flood alerts' },
             { icon: 'place', text: 'Location-based monitoring' },
             { icon: 'show-chart', text: 'Flood severity charts' },
-            { icon: 'directions-walk', text: 'Person & Car safety mode' },
+
             { icon: 'devices', text: 'Nearby sensor devices' },
           ].map((f, i) => (
             <View key={i} style={styles.featureRow}>
@@ -62,7 +62,7 @@ export default function About() {
         {/* Team */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Developed by</Text>
-          <Text style={styles.sectionText}>BAHGO Team — Thesis Project {'\n'}Bachelor of Science in Information Technology</Text>
+          <Text style={styles.sectionText}>BAHGO Team — Thesis Project {'\n'}Bachelor of Science in Computer Science</Text>
         </View>
 
         <View style={{ height: 40 }} />
