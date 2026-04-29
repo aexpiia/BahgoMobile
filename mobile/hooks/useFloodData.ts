@@ -22,14 +22,6 @@ export interface ChartDataPoint {
   levelCm: number
 }
 
-// ── Derives status from raw cm — adjust thresholds to match your device
-function getStatus(cm: number): FloodStatus {
-  if (cm < 15) return 'safe'
-  if (cm < 30) return 'caution'
-  if (cm < 60) return 'danger'
-  return 'critical'
-}
-
 export const THRESHOLD_CM = 35
 
 export const STATUS_COLOR: Record<FloodStatus, string> = {
@@ -50,60 +42,72 @@ export function getThresholdPercent(cm: number): number {
   return Math.min(Math.round((cm / THRESHOLD_CM) * 100), 100)
 }
 
-// ── Main hook
-export function useFloodData(currentSensorId = 'sensor_1') {
-  const [sensors, setSensors] = useState<SensorReading[]>([])
-  const [chartData, setChartData] = useState<ChartDataPoint[]>([])
+// Distance sensor measures FROM sensor DOWN to water surface
+// So higher Distance_cm = lower water level
+// Adjust MAX_SENSOR_DISTANCE to match your hardware setup
+const MAX_SENSOR_DISTANCE = 850
+
+function distanceToWaterLevel(distanceCm: number): number {
+  const level = MAX_SENSOR_DISTANCE - distanceCm
+  return Math.max(0, Math.round(level))
+}
+
+function getStatus(cm: number): FloodStatus {
+  if (cm < 15) return 'safe'
+  if (cm < 30) return 'caution'
+  if (cm < 60) return 'danger'
+  return 'critical'
+}
+
+export function useFloodData() {
+  const [waterLevelCm, setWaterLevelCm] = useState<number>(0)
+  const [rainValue, setRainValue] = useState<number>(0)
+  const [lastUpdated, setLastUpdated] = useState<string>('')
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    const sensorsRef = ref(db, 'sensors')
-    const chartRef = ref(db, `chartHistory/${currentSensorId}`)
+    const sensorRef = ref(db, 'Sensordata1')
 
-    // Live listener — updates instantly when device writes new data
-    onValue(sensorsRef, (snapshot) => {
+    onValue(sensorRef, (snapshot) => {
       const data = snapshot.val()
-      if (!data) return
+      if (!data) {
+        setError('No sensor data found.')
+        setIsLoading(false)
+        return
+      }
 
-      const parsed: SensorReading[] = Object.entries(data).map(([id, raw]: any) => ({
-        id,
-        street: raw.street,
-        area: raw.area,
-        waterLevelCm: raw.waterLevelCm,
-        status: getStatus(raw.waterLevelCm), // auto-derived — no need for device to send status
-        rateOfRiseCmPerHr: raw.rateOfRiseCmPerHr,
-        precipitationMmPerHr: raw.precipitationMmPerHr,
-        isCurrent: raw.isCurrent ?? false,
-        lastUpdated: raw.lastUpdated,
-      }))
-
-      setSensors(parsed)
+      const level = distanceToWaterLevel(data.Distance_cm)
+      setWaterLevelCm(level)
+      setRainValue(data.Rain_Value ?? 0)
+      setLastUpdated(data.Last_Updated ?? '')
       setIsLoading(false)
     }, (err) => {
       setError('Failed to load sensor data.')
       setIsLoading(false)
     })
 
-    onValue(chartRef, (snapshot) => {
-      const data = snapshot.val()
-      if (!data) return
-      const parsed: ChartDataPoint[] = Object.values(data) as ChartDataPoint[]
-      setChartData(parsed)
-    })
+    return () => off(sensorRef)
+  }, [])
 
-    // Cleanup listeners on unmount
-    return () => {
-      off(sensorsRef)
-      off(chartRef)
-    }
-  }, [currentSensorId])
+  const status = getStatus(waterLevelCm)
+
+  const currentSensor: SensorReading = {
+    id: 'Sensordata1',
+    street: 'Apple Street',       // hardcode for now — not in Firebase yet
+    area: 'Central, Taguig',      // hardcode for now — not in Firebase yet
+    waterLevelCm,
+    status,
+    rateOfRiseCmPerHr: 0,         // not in Firebase yet
+    precipitationMmPerHr: rainValue,
+    isCurrent: true,
+    lastUpdated,
+  }
 
   return {
-    sensors,
-    currentSensor: sensors.find(s => s.isCurrent) ?? null,
-    nearbySensors: sensors.filter(s => !s.isCurrent),
-    chartData,
+    currentSensor,
+    nearbySensors: [] as SensorReading[],  // only 1 sensor for now
+    chartData: [] as ChartDataPoint[],      // no chart history in Firebase yet
     isLoading,
     error,
   }

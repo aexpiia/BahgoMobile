@@ -3,41 +3,18 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useFonts, Poppins_400Regular, Poppins_600SemiBold, Poppins_700Bold, Poppins_800ExtraBold } from '@expo-google-fonts/poppins'
-
-// ── TEMPORARY MOCK — swap back to useFloodData() once Firebase is ready ──
-const currentSensor = {
-    street: 'Apple Street',
-    area: 'Central, Taguig',
-    waterLevelCm: 25,
-    status: 'caution' as const,
-    rateOfRiseCmPerHr: 8,
-    precipitationMmPerHr: 5.0,
-}
-
-const nearbySensors = [
-    { id: '2', street: 'Peach Street', area: 'Central, Taguig', waterLevelCm: 23, status: 'caution' as const },
-    { id: '3', street: 'Lime Street',  area: 'Central, Taguig', waterLevelCm: 30, status: 'danger'  as const },
-]
-
-const STATUS_COLOR = { safe: '#639922', caution: '#F5920A', danger: '#E53E3E', critical: '#A32D2D' }
-const STATUS_DESCRIPTION = {
-    safe:     'Water levels are normal. No immediate flood threat.',
-    caution:  'Water level is approaching the caution threshold. Monitor the situation and stay updated.',
-    danger:   'Dangerous water levels. Avoid flooded areas and prepare to evacuate.',
-    critical: 'Life-threatening flood conditions. Evacuate immediately.',
-}
-const THRESHOLD_CM = 35
-const getThresholdPercent = (cm: number) => Math.min(Math.round((cm / THRESHOLD_CM) * 100), 100)
-// ─────────────────────────────────────────────────────────────────────────────
+import { useFloodData, STATUS_COLOR, STATUS_DESCRIPTION, THRESHOLD_CM, getThresholdPercent } from '@/hooks/useFloodData'
 
 export default function Dashboard() {
     const router = useRouter()
+    const { currentSensor, nearbySensors, isLoading, error } = useFloodData()
 
     const [fontsLoaded] = useFonts({
         Poppins_400Regular, Poppins_600SemiBold, Poppins_700Bold, Poppins_800ExtraBold,
     })
 
-      if (!fontsLoaded) return null
+    // Wait for fonts AND sensor data
+    if (!fontsLoaded) return null
 
     const getWeatherIcon = (status: string) => {
         if (status === 'safe')    return 'mood'
@@ -48,7 +25,7 @@ export default function Dashboard() {
 
     const statusLabel = currentSensor.status.charAt(0).toUpperCase() + currentSensor.status.slice(1)
 
-       return (
+    return (
         <LinearGradient
             colors={['#0F6CE9', '#83b9ff', '#aee2f5', '#F1F5F9']}
             locations={[0, 0.35, 0.60, 1]}
@@ -66,6 +43,14 @@ export default function Dashboard() {
             </View>
 
             <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
+
+                {/* Error banner — only shows if Firebase fails */}
+                {error && (
+                    <View style={styles.errorBanner}>
+                        <MaterialIcons name="warning" size={16} color="#fff" />
+                        <Text style={styles.errorText}>{error}</Text>
+                    </View>
+                )}
 
                 {/* Glass Card */}
                 <View style={styles.glassCard}>
@@ -158,6 +143,10 @@ export default function Dashboard() {
                 <View style={styles.section}>
                     <Text style={styles.nearbyLabel}>nearby street devices:</Text>
 
+                    {nearbySensors.length === 0 && (
+                        <Text style={styles.noNearby}>No nearby devices found.</Text>
+                    )}
+
                     {nearbySensors.map(device => (
                         <TouchableOpacity
                             key={device.id}
@@ -195,64 +184,71 @@ export default function Dashboard() {
     )
 }
 
-    const styles = StyleSheet.create({
-        container: { flex: 1 },
-        header: {
-            flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-            paddingTop: 56, paddingBottom: 16, paddingHorizontal: 20,
-        },
-        headerIcon: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
-        headerTitle: { fontFamily: 'Poppins_700Bold', fontSize: 18, color: '#FFFFFF' },
-        scroll: { flex: 1 },
-        section: { paddingHorizontal: 20, marginTop: 20 },
-        glassCard: {
-            backgroundColor: 'rgba(255,255,255,0.15)',
-            borderRadius: 45, marginHorizontal: 0, marginTop: 20,
-            padding: 20, borderWidth: 1, borderColor: 'rgba(255,255,255,0.2)',
-        },
-        innerSection: { marginTop: 0, marginBottom: 10 },
-        sectionRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
-        sectionLabel: { fontFamily: 'Poppins_400Regular', fontSize: 13, color: 'rgba(255,255,255,0.85)' },
-        nearbyLabel: { fontFamily: 'Poppins_400Regular', fontSize: 13, color: '#044b7a', marginBottom: 12 },
-        sectionTitle: { fontFamily: 'Poppins_700Bold', fontSize: 17, color: '#1E293B', marginBottom: 12 },
-        viewFull: { fontFamily: 'Poppins_400Regular', fontSize: 12, color: 'rgba(255,255,255,0.9)' },
-        locationCard: { borderRadius: 16, overflow: 'hidden' },
-        locationCardInner: { flexDirection: 'row', alignItems: 'center', padding: 24, gap: 12 },
-        locationCardLeft: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10 },
-        locationCardRight: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10 },
-        divider: { width: 1, height: 50, backgroundColor: '#CBD5E1' },
-        locationStreet: { fontFamily: 'Poppins_700Bold', fontSize: 18, color: '#1E293B' },
-        locationArea: { fontFamily: 'Poppins_600SemiBold', fontSize: 14, color: '#64748B' },
-        levelLabel: { fontFamily: 'Poppins_600SemiBold', fontSize: 14, color: '#64748B' },
-        levelRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-        levelValue: { fontFamily: 'Poppins_700Bold', fontSize: 18, color: '#1E293B' },
-        levelStatus: { fontFamily: 'Poppins_600SemiBold', fontSize: 16 },
-        statusRow: { flexDirection: 'row', gap: 12, marginBottom: 12 },
-        statusCard: { flex: 1, borderRadius: 16, padding: 14 },
-        statusCardLabel: { fontFamily: 'Poppins_400Regular', fontSize: 11, color: 'rgba(255,255,255,0.85)', marginBottom: 4 },
-        statusCardValue: { fontFamily: 'Poppins_800ExtraBold', fontSize: 28, color: '#FFFFFF', marginBottom: 2 },
-        statusCardValueWarning: { fontFamily: 'Poppins_800ExtraBold', fontSize: 22, color: '#FFFFFF', marginBottom: 2 },
-        statusCardSub: { fontFamily: 'Poppins_400Regular', fontSize: 11, color: 'rgba(255,255,255,0.85)', lineHeight: 16 },
-        rateRow: { flexDirection: 'row', gap: 12, marginBottom: 12 },
-        rateCard: {
-            flex: 1, backgroundColor: 'rgba(255,255,255,0.6)',
-            borderRadius: 12, padding: 12, alignItems: 'center',
-        },
-        rateText: { fontFamily: 'Poppins_400Regular', fontSize: 12, color: '#475569' },
-        rateBold: { fontFamily: 'Poppins_700Bold', color: '#1E293B' },
-        personCard: { backgroundColor: 'rgba(255,255,255,0.6)', borderRadius: 16, padding: 16 },
-        personText: { fontFamily: 'Poppins_400Regular', fontSize: 13, color: '#475569', lineHeight: 20 },
-        nearbyCardLeft: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10 },
-        nearbyCardRight: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10 },
-        nearbyDivider: { width: 1, height: 40, backgroundColor: '#CBD5E1' },
-        nearbyStreet: { fontFamily: 'Poppins_700Bold', fontSize: 16, color: '#1E293B' },
-        nearbyArea: { fontFamily: 'Poppins_400Regular', fontSize: 12, color: '#64748B' },
-        nearbyLevelLabel: { fontFamily: 'Poppins_400Regular', fontSize: 12, color: '#64748B' },
-        nearbyLevelValue: { fontFamily: 'Poppins_700Bold', fontSize: 16, color: '#1E293B' },
-        nearbyLevelStatus: { fontFamily: 'Poppins_600SemiBold', fontSize: 14 },
-        deviceCard: {
-            backgroundColor: '#FFFFFF', borderRadius: 16, padding: 16,
-            flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 12,
-            elevation: 2, shadowColor: '#000', shadowOpacity: 0.06, shadowRadius: 6, shadowOffset: { width: 0, height: 1 },
-        },
-    })
+const styles = StyleSheet.create({
+    container: { flex: 1 },
+    header: {
+        flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+        paddingTop: 56, paddingBottom: 16, paddingHorizontal: 20,
+    },
+    headerIcon: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
+    headerTitle: { fontFamily: 'Poppins_700Bold', fontSize: 18, color: '#FFFFFF' },
+    scroll: { flex: 1 },
+    section: { paddingHorizontal: 20, marginTop: 20 },
+    errorBanner: {
+        flexDirection: 'row', alignItems: 'center', gap: 8,
+        backgroundColor: '#E53E3E', marginHorizontal: 20, marginTop: 12,
+        borderRadius: 10, padding: 12,
+    },
+    errorText: { fontFamily: 'Poppins_400Regular', fontSize: 13, color: '#fff' },
+    glassCard: {
+        backgroundColor: 'rgba(255,255,255,0.15)',
+        borderRadius: 45, marginHorizontal: 0, marginTop: 20,
+        padding: 20, borderWidth: 1, borderColor: 'rgba(255,255,255,0.2)',
+    },
+    innerSection: { marginTop: 0, marginBottom: 10 },
+    sectionRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
+    sectionLabel: { fontFamily: 'Poppins_400Regular', fontSize: 13, color: 'rgba(255,255,255,0.85)' },
+    nearbyLabel: { fontFamily: 'Poppins_400Regular', fontSize: 13, color: '#044b7a', marginBottom: 12 },
+    noNearby: { fontFamily: 'Poppins_400Regular', fontSize: 13, color: '#64748B' },
+    sectionTitle: { fontFamily: 'Poppins_700Bold', fontSize: 17, color: '#1E293B', marginBottom: 12 },
+    viewFull: { fontFamily: 'Poppins_400Regular', fontSize: 12, color: 'rgba(255,255,255,0.9)' },
+    locationCard: { borderRadius: 16, overflow: 'hidden' },
+    locationCardInner: { flexDirection: 'row', alignItems: 'center', padding: 24, gap: 12 },
+    locationCardLeft: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10 },
+    locationCardRight: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10 },
+    divider: { width: 1, height: 50, backgroundColor: '#CBD5E1' },
+    locationStreet: { fontFamily: 'Poppins_700Bold', fontSize: 18, color: '#1E293B' },
+    locationArea: { fontFamily: 'Poppins_600SemiBold', fontSize: 14, color: '#64748B' },
+    levelLabel: { fontFamily: 'Poppins_600SemiBold', fontSize: 14, color: '#64748B' },
+    levelRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+    levelValue: { fontFamily: 'Poppins_700Bold', fontSize: 18, color: '#1E293B' },
+    levelStatus: { fontFamily: 'Poppins_600SemiBold', fontSize: 16 },
+    statusRow: { flexDirection: 'row', gap: 12, marginBottom: 12 },
+    statusCard: { flex: 1, borderRadius: 16, padding: 14 },
+    statusCardLabel: { fontFamily: 'Poppins_400Regular', fontSize: 11, color: 'rgba(255,255,255,0.85)', marginBottom: 4 },
+    statusCardValue: { fontFamily: 'Poppins_800ExtraBold', fontSize: 28, color: '#FFFFFF', marginBottom: 2 },
+    statusCardValueWarning: { fontFamily: 'Poppins_800ExtraBold', fontSize: 22, color: '#FFFFFF', marginBottom: 2 },
+    statusCardSub: { fontFamily: 'Poppins_400Regular', fontSize: 11, color: 'rgba(255,255,255,0.85)', lineHeight: 16 },
+    rateRow: { flexDirection: 'row', gap: 12, marginBottom: 12 },
+    rateCard: {
+        flex: 1, backgroundColor: 'rgba(255,255,255,0.6)',
+        borderRadius: 12, padding: 12, alignItems: 'center',
+    },
+    rateText: { fontFamily: 'Poppins_400Regular', fontSize: 12, color: '#475569' },
+    rateBold: { fontFamily: 'Poppins_700Bold', color: '#1E293B' },
+    personCard: { backgroundColor: 'rgba(255,255,255,0.6)', borderRadius: 16, padding: 16 },
+    personText: { fontFamily: 'Poppins_400Regular', fontSize: 13, color: '#475569', lineHeight: 20 },
+    nearbyCardLeft: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10 },
+    nearbyCardRight: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10 },
+    nearbyDivider: { width: 1, height: 40, backgroundColor: '#CBD5E1' },
+    nearbyStreet: { fontFamily: 'Poppins_700Bold', fontSize: 16, color: '#1E293B' },
+    nearbyArea: { fontFamily: 'Poppins_400Regular', fontSize: 12, color: '#64748B' },
+    nearbyLevelLabel: { fontFamily: 'Poppins_400Regular', fontSize: 12, color: '#64748B' },
+    nearbyLevelValue: { fontFamily: 'Poppins_700Bold', fontSize: 16, color: '#1E293B' },
+    nearbyLevelStatus: { fontFamily: 'Poppins_600SemiBold', fontSize: 14 },
+    deviceCard: {
+        backgroundColor: '#FFFFFF', borderRadius: 16, padding: 16,
+        flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 12,
+        elevation: 2, shadowColor: '#000', shadowOpacity: 0.06, shadowRadius: 6, shadowOffset: { width: 0, height: 1 },
+    },
+})

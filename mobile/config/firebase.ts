@@ -3,15 +3,14 @@ import { initializeApp } from 'firebase/app'
 import { getDatabase } from 'firebase/database'
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyAdwD61B3W2_7ogIjRwnLR0WmNgm5hpN4c",
+  authDomain: "bahgo-ee71b.firebaseapp.com",
+  databaseURL: "https://bahgo-ee71b-default-rtdb.asia-southeast1.firebaseio.com",
+  projectId: "bahgo-ee71b",
+  storageBucket: "bahgo-ee71b.firebasestorage.app",
+  messagingSenderId: "734832326241",
+  appId: "1:734832326241:android:5bb857abc9d4e4600e1c20",
 }
 
 const app = initializeApp(firebaseConfig)
 export const db = getDatabase(app)
-
